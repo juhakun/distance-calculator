@@ -9,6 +9,16 @@ import com.muulti.spring.validation.TrainStationVerifier;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+/**
+ * @author Julia Häusler-Kun
+ * @date 2022/12/07
+ *
+ *       Reads data from a csv source file (=provided list of train
+ *       stations) to a list of beans. The data from the source file is filtered
+ *       by a BeanVerifier after creation of beans, but before being passed on.
+ * 
+ */
+
 public class CsvReader {
 
 	private static final String FILE_PATH = "/Users/julia/eclipse-workspace/distance-calculator/src/main/resources/D_Bahnhof_2020_alle.CSV";
@@ -20,10 +30,8 @@ public class CsvReader {
 
 	public CsvReader() {
 		try {
-			// Create bean from csv
+			// Create list of beans from csv source file
 			// TrainStationVerifier filters far distance train stations (FV Fernverkehr)
-			// before creating beans
-			System.out.println(FILE_PATH);
 			Reader reader = new BufferedReader(new FileReader(FILE_PATH));
 			csvToBeanReader = new CsvToBeanBuilder<TrainStation>(reader).withSeparator(';').withType(TrainStation.class)
 					.withVerifier(new TrainStationVerifier()).withIgnoreLeadingWhiteSpace(true).build();
