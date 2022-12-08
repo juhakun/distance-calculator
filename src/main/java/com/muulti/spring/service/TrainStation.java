@@ -52,26 +52,32 @@ public class TrainStation {
 
 		// Getting data from csv document via CsvReader class
 		new CsvReader();
-
+		
 		// Going through list of beans created form csv data to find train station with
 		// given DS100 code
 		TrainStation csvTrainStation = null;
-		Iterator<TrainStation> csvTrainStationIterator = CsvReader.getCsvToBeanReader().iterator();
-		while (csvTrainStationIterator.hasNext()) {
-			TrainStation tempTrainStation = csvTrainStationIterator.next();
-			if (tempTrainStation.code.equals(code)) {
-				csvTrainStation = tempTrainStation;
-				break;
+		try {
+			Iterator<TrainStation> csvTrainStationIterator = CsvReader.getCsvToBeanReader().iterator();
+			while (csvTrainStationIterator.hasNext()) {
+				TrainStation tempTrainStation = csvTrainStationIterator.next();
+				if (tempTrainStation.code.equals(code)) {
+					csvTrainStation = tempTrainStation;
+					break;
+				}
 			}
-		}
-		// if entered DS100 code does not exist in filtered list of beans (e.g. because
-		// it is not a FV train station) message is passed on to Distance class that
-		// calculation
-		// is not possible
-		if (!csvTrainStationIterator.hasNext() && csvTrainStation == null) {
-			csvTrainStation = new TrainStation();
-			csvTrainStation.name = "" + code + " ist kein Fernverkehrbahnhof. "
-					+ "Die Distanz kann nur zwischen zwei Fernbahnhöfen berechnet werden.";
+			// if entered DS100 code does not exist in filtered list of beans (e.g. because
+			// it is not a FV train station) message is passed on to Distance class that
+			// calculation
+			// is not possible
+			if (!csvTrainStationIterator.hasNext() && csvTrainStation == null) {
+				csvTrainStation = new TrainStation();
+				csvTrainStation.name = "" + code + " ist kein Fernverkehrbahnhof. "
+						+ "Die Distanz kann nur zwischen zwei Fernbahnhöfen berechnet werden.";
+			}
+		} catch (NullPointerException e) {
+			System.out.println("Exception thrown by TrainStation class: No data from CsvReader available");
+			e.printStackTrace();
+
 		}
 		return csvTrainStation;
 

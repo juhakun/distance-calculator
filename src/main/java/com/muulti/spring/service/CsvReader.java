@@ -21,7 +21,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CsvReader {
 
-	private static final String FILE_PATH = "/Users/julia/eclipse-workspace/distance-calculator/src/main/resources/D_Bahnhof_2020_alle.CSV";
+	private static final String FILE_PATH = "/Users/julia/eclipse-workspace/distance-calculator/src/main/resources/D_Bahnhof_2020_alle2.CSV";
 	private static CsvToBean<TrainStation> csvToBeanReader;
 
 	public static CsvToBean<TrainStation> getCsvToBeanReader() {
@@ -37,10 +37,14 @@ public class CsvReader {
 					.withVerifier(new TrainStationVerifier()).withIgnoreLeadingWhiteSpace(true).build();
 
 		} catch (FileNotFoundException e) {
-			System.out.println("File was not found");
+			System.out.println("Exception thrown by CsvReader class: csv file was not found or can not be read");
 			e.printStackTrace();
 		}
+	}
 
+	public void setCsvToBeanReader(Object object) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

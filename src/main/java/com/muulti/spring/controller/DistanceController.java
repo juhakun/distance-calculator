@@ -10,8 +10,9 @@ import com.muulti.spring.service.Distance;
  * @author Julia Häusler-Kun
  * @date 2022/12/07
  *
- *       Controller class handles HTTP requests for mapped method getDistance() by returning a
- *       new instance of Distance class
+ *       Controller class handles HTTP requests for mapped method getDistance()
+ *       by returning a new instance of Distance class. If the input does not
+ *       match the parameterized method a customized error.html is called.
  * 
  */
 
@@ -26,7 +27,8 @@ public class DistanceController {
 		// e.g. in lower case)
 		codeFrom = codeFrom.toUpperCase();
 		codeTo = codeTo.toUpperCase();
-		// both parameters are being forwarded to the parameterized constructor of Distance class
+		// both parameters are being forwarded to the parameterized constructor of
+		// Distance class
 		return new Distance(codeFrom, codeTo);
 	}
 }

@@ -32,12 +32,20 @@ public class DistanceCalculator {
 			d = RADIUS * c;
 
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			if (from.getLon() == null) {
-				System.out.println("from is not a FV station");
+				System.out.println(
+						"Exception thrown by DistanceCalculator class: from.getLon() is null because from does not exist or is not a FV station");
+				
 			}
 			if (to.getLon() == null) {
-				System.out.println("from is not a FV station");
+				System.out.println(
+						"Exception thrown by DistanceCalculator class: to.getLon() is null because to does not exist or is not a FV station");
 			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			System.out.println(
+					"Exception thrown by DistanceCalculator class: Calculation failed because getLon() or getLat() values cannot be converted to double value");
 		}
 		return (int) Math.abs(d);
 	}

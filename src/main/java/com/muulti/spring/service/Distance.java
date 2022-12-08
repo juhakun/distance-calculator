@@ -8,6 +8,7 @@ package com.muulti.spring.service;
  * 
  */
 
+
 public class Distance {
 
 	// Instantiation of fields for JSON response
@@ -18,12 +19,17 @@ public class Distance {
 
 	// Parameterized constructor receiving two DS100 codes from the controller class
 	public Distance(String codeFrom, String codeTo) {
+		try {
 		// Declaration of instance variables by calling in TrainStation and
 		// DistanceCalculator class
 		this.from = TrainStation.getTrainStation(codeFrom).getName();
 		this.to = TrainStation.getTrainStation(codeTo).getName();
 		this.distance = DistanceCalculator.calculateDistance(TrainStation.getTrainStation(codeFrom),
 				TrainStation.getTrainStation(codeTo));
+		} catch (NullPointerException e) {
+			System.out.println("Exception thrown by Distance class: No data from TrainStation class available");
+			e.printStackTrace();
+		}
 	}
 
 	// Getters and setters
