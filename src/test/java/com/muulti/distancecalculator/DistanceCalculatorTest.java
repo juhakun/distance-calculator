@@ -1,6 +1,7 @@
 package com.muulti.distancecalculator;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,8 @@ class DistanceCalculatorTest {
 	void testCalculateDistance() {
 		assertTrue(DistanceCalculator.calculateDistance(TrainStation.getTrainStation("BLS"),
 				TrainStation.getTrainStation("FF")) == 423);
+		assertFalse(DistanceCalculator.calculateDistance(TrainStation.getTrainStation("KA"),
+				TrainStation.getTrainStation("FF")) == 200);
 	}
 
 }

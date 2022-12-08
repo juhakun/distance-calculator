@@ -21,6 +21,7 @@ class TrainStationTest {
 	@Test
 	void testGetTrainStation() {
 		assertTrue(TrainStation.getTrainStation("BLS").getName().equals("Berlin Hbf"));
+		assertFalse(TrainStation.getTrainStation("BLS").getName().equals("BerlinHbf"));
 	}
 
 }
