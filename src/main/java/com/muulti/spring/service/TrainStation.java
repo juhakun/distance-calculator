@@ -46,22 +46,28 @@ public class TrainStation {
 	@CsvBindByName(column = "Status")
 	private String status;
 
-	// Method taking DS100 code as parameter to get data from csv
-	// source file returning the corresponding train station
-	public static TrainStation getTrainStation(String code) {
-
+	// Parameterized constructor taking DS100 code as parameter to get data from csv
+	// source file creating a new TrainStation instance
+	public TrainStation(String code) {
 		// Getting data from csv document via CsvReader class
 		new CsvReader();
-		
+
 		// Going through list of beans created form csv data to find train station with
 		// given DS100 code
-		TrainStation csvTrainStation = null;
 		try {
 			Iterator<TrainStation> csvTrainStationIterator = CsvReader.getCsvToBeanReader().iterator();
 			while (csvTrainStationIterator.hasNext()) {
-				TrainStation tempTrainStation = csvTrainStationIterator.next();
-				if (tempTrainStation.code.equals(code)) {
-					csvTrainStation = tempTrainStation;
+				TrainStation csvTrainStation = csvTrainStationIterator.next();
+				if (csvTrainStation.code.equals(code)) {
+					this.evaNr = csvTrainStation.getEvaNr();
+					this.code = csvTrainStation.getCode();
+					this.name = csvTrainStation.getName();
+					this.ifopt = this.traffic = csvTrainStation.traffic;
+					this.lon = csvTrainStation.lon;
+					this.lat = csvTrainStation.lat;
+					this.operatorName = csvTrainStation.operatorName;
+					this.operatorNr = csvTrainStation.operatorNr;
+					this.status = csvTrainStation.status;
 					break;
 				}
 			}
@@ -69,9 +75,8 @@ public class TrainStation {
 			// it is not a FV train station) message is passed on to Distance class that
 			// calculation
 			// is not possible
-			if (!csvTrainStationIterator.hasNext() && csvTrainStation == null) {
-				csvTrainStation = new TrainStation();
-				csvTrainStation.name = "" + code + " ist kein Fernverkehrbahnhof. "
+			if (!csvTrainStationIterator.hasNext() && this.name == null) {
+				this.name = "" + code + " ist kein Fernverkehrbahnhof. "
 						+ "Die Distanz kann nur zwischen zwei Fernbahnhöfen berechnet werden.";
 			}
 		} catch (NullPointerException e) {
@@ -79,9 +84,9 @@ public class TrainStation {
 			e.printStackTrace();
 
 		}
-		return csvTrainStation;
-
 	}
+
+	
 
 	// Getters and setters
 	public int getEvaNr() {
@@ -132,45 +137,47 @@ public class TrainStation {
 	public TrainStation() {
 
 	}
+	
+	// ALTERNATIVE IMPLEMENTATION FOR LINE 49 to 79
+		// Getting train station form csv source file data by calling parameterized
+		// method.
+		// This alternative might be useful if Dependency injection is used.
 
-	// ALTERNATIVE IMPLEMENTATION FOR LINE 54 to 81
-	// Getting train station form csv source file data by creating a TrainStation
-	// object with parameterized constructor instead of calling a method like
-	// implemented in line 19 to 27.
-	// This alternative might be useful if TrainStation objects are needed for
-	// further operations.
-
-//		public TrainStation(String code) {
+//		// Method taking DS100 code as parameter to get data from csv
+//		// source file returning the corresponding train station
+//		public static TrainStation getTrainStation(String code) {
+	//
 //			// Getting data from csv document via CsvReader class
-//	 		new CsvReader();
-//	
+//			new CsvReader();
+//			
 //			// Going through list of beans created form csv data to find train station with
 //			// given DS100 code
-//			Iterator<TrainStation> csvTrainStationIterator = CsvReader.getCsvToBeanReader().iterator();
-//			while (csvTrainStationIterator.hasNext()) {
-//				TrainStation csvTrainStation = csvTrainStationIterator.next();
-//				if (csvTrainStation.code.equals(code)) {
-//					this.evaNr = csvTrainStation.getEvaNr();
-//					this.code = csvTrainStation.getCode();
-//					this.name = csvTrainStation.getName();
-//					this.ifopt = this.traffic = csvTrainStation.traffic;
-//					this.lon = csvTrainStation.lon;
-//					this.lat = csvTrainStation.lat;
-//					this.operatorName = csvTrainStation.operatorName;
-//					this.operatorNr = csvTrainStation.operatorNr;
-//					this.status = csvTrainStation.status;
-//					break;
+//			TrainStation csvTrainStation = null;
+//			try {
+//				Iterator<TrainStation> csvTrainStationIterator = CsvReader.getCsvToBeanReader().iterator();
+//				while (csvTrainStationIterator.hasNext()) {
+//					TrainStation tempTrainStation = csvTrainStationIterator.next();
+//					if (tempTrainStation.code.equals(code)) {
+//						csvTrainStation = tempTrainStation;
+//						break;
+//					}
 //				}
+//				// if entered DS100 code does not exist in filtered list of beans (e.g. because
+//				// it is not a FV train station) message is passed on to Distance class that
+//				// calculation
+//				// is not possible
+//				if (!csvTrainStationIterator.hasNext() && csvTrainStation == null) {
+//					csvTrainStation = new TrainStation();
+//					csvTrainStation.name = "" + code + " ist kein Fernverkehrbahnhof. "
+//							+ "Die Distanz kann nur zwischen zwei Fernbahnhöfen berechnet werden.";
+//				}
+//			} catch (NullPointerException e) {
+//				System.out.println("Exception thrown by TrainStation class: No data from CsvReader available");
+//				e.printStackTrace();
+	//
 //			}
-//			// if entered DS100 code does not exist in filtered list of beans (e.g. because
-//			// it is not a FV train station) message is passed on to Distance class that
-//			// calculation
-//			// is not possible
-//			if (!csvTrainStationIterator.hasNext() && this.name == null) {
-//				this.name = "" + code + " ist kein Fernverkehrbahnhof. "
-//						+ "Die Distanz kann nur zwischen zwei Fernbahnhöfen berechnet werden.";
-//			}
-//	
+//			return csvTrainStation;
+	//
 //		}
 
 }

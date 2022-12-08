@@ -42,9 +42,4 @@ public class CsvReader {
 		}
 	}
 
-	public void setCsvToBeanReader(Object object) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

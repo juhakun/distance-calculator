@@ -22,10 +22,10 @@ class DistanceCalculatorTest {
 
 	@Test
 	void testCalculateDistance() {
-		assertTrue(DistanceCalculator.calculateDistance(TrainStation.getTrainStation("BLS"),
-				TrainStation.getTrainStation("FF")) == 423);
-		assertFalse(DistanceCalculator.calculateDistance(TrainStation.getTrainStation("KA"),
-				TrainStation.getTrainStation("FF")) == 200);
+		assertTrue(DistanceCalculator.calculateDistance(new TrainStation("BLS"),
+				new TrainStation("FF")) == 423);
+		assertFalse(DistanceCalculator.calculateDistance(new TrainStation("KA"),
+				new TrainStation("FF")) == 200);
 	}
 
 }

@@ -8,7 +8,6 @@ package com.muulti.spring.service;
  * 
  */
 
-
 public class Distance {
 
 	// Instantiation of fields for JSON response
@@ -17,15 +16,16 @@ public class Distance {
 	private int distance;
 	private String unit = "km";
 
-	// Parameterized constructor receiving two DS100 codes from the controller class
+//	Parameterized constructor receiving two DS100 codes from the controller class
 	public Distance(String codeFrom, String codeTo) {
 		try {
-		// Declaration of instance variables by calling in TrainStation and
-		// DistanceCalculator class
-		this.from = TrainStation.getTrainStation(codeFrom).getName();
-		this.to = TrainStation.getTrainStation(codeTo).getName();
-		this.distance = DistanceCalculator.calculateDistance(TrainStation.getTrainStation(codeFrom),
-				TrainStation.getTrainStation(codeTo));
+			// Declaration of instance variables by creating two TrainStation objects and
+			// passing them on to DistanceCalculator class
+			TrainStation trainStationFrom = new TrainStation(codeFrom);
+			TrainStation trainStationTo = new TrainStation(codeTo);
+			this.from = trainStationFrom.getName();
+			this.to = trainStationTo.getName();
+			this.distance = DistanceCalculator.calculateDistance(trainStationFrom, trainStationTo);
 		} catch (NullPointerException e) {
 			System.out.println("Exception thrown by Distance class: No data from TrainStation class available");
 			e.printStackTrace();
@@ -65,21 +65,24 @@ public class Distance {
 		this.unit = unit;
 	}
 
-	// ALTERNATIVE IMPLEMENTATION FOR LINE 19 to 27
-	// Declaration of instance variables by creating two TrainStation objects
-	// instead of declaring them like implemented in line 19 to 27.
-	// This alternative might be useful if TrainStation objects are needed for
-	// further operations.
+	// ALTERNATIVE IMPLEMENTATION FOR LINE 22 to 36
+	// Declaration of instance variables by calling methods from TrainStation and
+	// DistanceCalculator class.
+	// This alternative might be implemented when Dependency Injection is used.
 
-//	 private transient TrainStation trainStationFrom;
-//		private transient TrainStation trainStationTo;	
-//	
+//		// Parameterized constructor receiving two DS100 codes from the controller class
 //		public Distance(String codeFrom, String codeTo) {
-//			this.trainStationFrom = new TrainStation(codeFrom);
-//			this.trainStationTo = new TrainStation(codeTo);
-//			this.from = trainStationFrom.getName();
-//			this.to = trainStationTo.getName();
-//			this.distance = DistanceCalculator.calculateDistance(trainStationFrom, trainStationTo);
+//			try {
+//			// Declaration of instance variables by calling methods from TrainStation and
+//			// DistanceCalculator class
+//			this.from = TrainStation.getTrainStation(codeFrom).getName();
+//			this.to = TrainStation.getTrainStation(codeTo).getName();
+//			this.distance = DistanceCalculator.calculateDistance(TrainStation.getTrainStation(codeFrom),
+//					TrainStation.getTrainStation(codeTo));
+//			} catch (NullPointerException e) {
+//				System.out.println("Exception thrown by Distance class: No data from TrainStation class available");
+//				e.printStackTrace();
+//			}
 //		}
 
 }
