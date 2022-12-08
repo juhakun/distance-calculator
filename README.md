@@ -16,6 +16,7 @@ A csv source file provides a list of train stations. The list is filtered as onl
 * Java 
 * Spring Boot
 * Rest API
+* JUnit
 * Version control: Git
 * IDE: Eclipse
 
