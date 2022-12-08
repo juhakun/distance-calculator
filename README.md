@@ -6,6 +6,10 @@ The webservice was created as a Case Study. It calculates the linear distance be
 The HTTP request is handled by a Rest Controller returning a JSON Response. 
 A csv source file provides a list of train stations. The list is filtered as only far distance train stations are supposed to be used for the distance calculator. 
 
+## Screenshots diagrams
+### UML
+<img src="/Diagramm_distanceCalculator.png" width="800">
+
 
 ## Tools used
 
